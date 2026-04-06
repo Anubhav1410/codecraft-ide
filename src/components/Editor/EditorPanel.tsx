@@ -22,6 +22,21 @@ const EditorPanel = ({currentLanguage} : {
                 theme="vs-dark"
                 value={code}
                 onChange={handleCodeChange}
+                // loading={
+                //     <div className="flex items-center justify-center h-full bg-zinc-800 text-zinc-400">
+                //         Loading editor...
+                //     </div>
+                // }
+                options={{
+                    minimap: { enabled: false },
+                    fontSize: 16,
+                    lineNumbers: "on",
+                    wordWrap: "on",
+                    tabSize: 4,
+                    automaticLayout: true,
+                    scrollBeyondLastLine: false,
+                    padding: { top: 16 },
+                }}
             />
         </div>
     );
