@@ -22,11 +22,11 @@ const EditorPanel = ({currentLanguage} : {
                 theme="vs-dark"
                 value={code}
                 onChange={handleCodeChange}
-                // loading={
-                //     <div className="flex items-center justify-center h-full bg-zinc-800 text-zinc-400">
-                //         Loading editor...
-                //     </div>
-                // }
+                loading={
+                    <div className="flex items-center justify-center h-full bg-black text-zinc-400">
+                        Loading editor...
+                    </div>
+                }
                 options={{
                     minimap: { enabled: false },
                     fontSize: 16,
