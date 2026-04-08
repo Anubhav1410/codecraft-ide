@@ -1,18 +1,14 @@
 import Editor from "@monaco-editor/react";
-import { useState, useEffect } from "react";
 import type { Language } from "../../types";
 
-const EditorPanel = ({currentLanguage} : {
+const EditorPanel = ({currentLanguage, code, onCodeChange} : {
     currentLanguage : Language;
+    code : string;
+    onCodeChange : (value : string) => void;
 }) => {
-    const [code, setCode] = useState(currentLanguage.defaultCode);
-
-    useEffect(() => {
-        setCode(currentLanguage.defaultCode);
-    }, [currentLanguage]);
 
     function handleCodeChange (val : string | undefined) {
-        setCode(val || "")
+        onCodeChange(val || "")
     }
     return (
         <div className="flex-1">
