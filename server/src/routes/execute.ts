@@ -5,7 +5,7 @@ const router = Router();
 
 router.post("/", async (req: Request, res: Response) => {
     try {
-        const { language, version, code } = req.body;
+        const { language, version, code, stdin } = req.body;
 
         // Validation
         if (!language || !version || !code) {
@@ -23,7 +23,7 @@ router.post("/", async (req: Request, res: Response) => {
         }
 
         // Execute the code
-        const result = await executeCode({ language, version, code });
+        const result = await executeCode({ language, version, code, stdin });
 
         res.json(result);
     } catch (error) {

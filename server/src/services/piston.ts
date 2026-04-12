@@ -4,6 +4,7 @@ interface PistonRequest {
     language: string;
     version: string;
     code: string;
+    stdin? : string;
 }
 
 interface PistonResponse {
@@ -13,7 +14,7 @@ interface PistonResponse {
     exitCode: number;
 }
 
-export async function executeCode({ language, version, code }: PistonRequest): Promise<PistonResponse> {
+export async function executeCode({ language, version, code, stdin }: PistonRequest): Promise<PistonResponse> {
     const response = await fetch(PISTON_API_URL, {
         method: "POST",
         headers: {
@@ -23,6 +24,7 @@ export async function executeCode({ language, version, code }: PistonRequest): P
             language,
             version,
             files: [{ content: code }],
+            stdin : stdin || ""
         }),
     });
 

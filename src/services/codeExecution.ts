@@ -4,6 +4,7 @@ interface ExecuteRequest {
     language: string;
     version: string;
     code: string;
+    stdin? : string;
 }
 
 export interface ExecuteResponse {
@@ -13,13 +14,13 @@ export interface ExecuteResponse {
     exitCode: number;
 }
 
-export async function executeCode({ language, version, code }: ExecuteRequest): Promise<ExecuteResponse> {
+export async function executeCode({ language, version, code, stdin }: ExecuteRequest): Promise<ExecuteResponse> {
     const response = await fetch(API_URL, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ language, version, code }),
+        body: JSON.stringify({ language, version, code, stdin }),
     });
 
     if (!response.ok) {

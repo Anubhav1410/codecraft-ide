@@ -13,10 +13,24 @@ function App() {
   const [code, setCode] = useState<string>(currentLanguage.defaultCode);
   const [output, setOutput] = useState<ExecuteResponse | null>(null);
   const [isRunning, setIsRunning] = useState<boolean>(false);
+  const [stdin, setStdin] = useState<string>("");
 
   useEffect(() => {
     setCode(currentLanguage.defaultCode);
   }, [currentLanguage]);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+        // metaKey = Cmd on Mac, Windows key on Windows (rarely used)
+        // ctrlKey = Ctrl on Windows/Linux, Control on Mac
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") {
+            e.preventDefault();
+            runCode();
+        }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [runCode]);
 
   async function runCode() {
       setIsRunning(true);
@@ -27,6 +41,7 @@ function App() {
               language: currentLanguage.pistonId,
               version: currentLanguage.version,
               code: code,
+              stdin : stdin
           });
           setOutput(result);
       } catch (error) {
@@ -60,6 +75,8 @@ function App() {
           <TerminalPanel
             output={output}
             isRunning={isRunning}
+            stdin={stdin}
+            onStdinChange={setStdin}
           />
         </div>
       </div>
